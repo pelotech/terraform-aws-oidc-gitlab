@@ -17,7 +17,7 @@ data "tls_certificate" "gitlab" {
 
 resource "aws_iam_openid_connect_provider" "gitlab" {
   url             = var.gitlab_url
-  client_id_list  = ["XXXXXXXXXXX"] # TODO
+  client_id_list  = ["sts.amazonaws.com"]
   thumbprint_list = [data.tls_certificate.gitlab.certificates.0.sha1_fingerprint]
 }
 
@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "assume-role-policy" {
     condition {
       test     = "StringEquals"
       variable = "XXXXXXXXXXXXXXXXX:aud" #TODO
-      values   = ["XXXXXXXXXXX"] # TODO
+      values   = ["sts.amazonaws.com"]
     }
     condition {
       test     = "StringLike"
@@ -59,10 +59,10 @@ data "aws_iam_policy_document" "assume-role-policy" {
 }
 
 resource "aws_iam_role" "gitlab_ci" {
-  name               = format("GitLabCI-OIDC-%s", var.role_name)
-  description        = "GitLabCI with OIDC"
-  path               = "/ci/"
-  assume_role_policy = data.aws_iam_policy_document.assume-role-policy.json
+  name                = format("GitLabCI-OIDC-%s", var.role_name)
+  description         = "GitLabCI with OIDC"
+  path                = "/ci/"
+  assume_role_policy  = data.aws_iam_policy_document.assume-role-policy.json
   managed_policy_arns = formatlist(
     "arn:%s:iam::aws:policy/%s",
     data.aws_partition.current.partition,
