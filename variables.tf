@@ -1,7 +1,27 @@
+variable "gitlab_tls_url" {
+  type        = string
+  # Avoid using https scheme because the Hashicorp TLS provider has started following redirects starting v4.
+  # See https://github.com/hashicorp/terraform-provider-tls/issues/249
+  default     = "tls://gitlab.com:443"
+  description = "GitLab URL to perform TLS verification against."
+}
+
 variable "gitlab_url" {
   type        = string
   default     = "https://gitlab.com"
-  description = "GitLab URL to perform TLS verification against."
+  description = "GitLab URL."
+}
+
+variable "aud_value" {
+  type        = string
+  default     = "https://gitlab.com"
+  description = "GitLab Aud"
+}
+
+variable "match_field" {
+  type        = string
+  default     = "aud"
+  description = "GitLab match_field."
 }
 
 variable "gitlab_repos" {

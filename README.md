@@ -34,10 +34,13 @@ No modules.
 ## Inputs
 
 | Name                                                                                               | Description                                                                                            | Type | Default | Required |
-|----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|------|---------|:--------:|
+|----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|------|-----|:--------:|
+| <a name="input_gitlab_tls_url"></a> [gitlab\_tls\_url](#input\_gitlab\_tls\_url)                   | GitLab URL to perform TLS verification against.                                                        | `string` | `tls://gitlab.com:443` | no |
+| <a name="input_gitlab_url"></a> [gitlab\_url](#input\_gitlab\_url)                                 | GitLab URL.                                                                                            | `string` | `https://gitlab.com` | no |
+| <a name="input_aud_value"></a> [aud\_value](#input\_aud\_value)                                    | GitLab Aud.                                                                                            | `string` | `https://gitlab.com` | no |
+| <a name="input_match_field"></a> [match\_field](#input\_match\_field)                              | GitLab match_field.                                                                                    | `string` | `aud` | no |
 | <a name="input_assume_role_names"></a> [assume\_role\_names](#input\_assume\_role\_names)          | List of roles that can assume the OIDC role. Useful for debuging cluster before aws-config is updated. | `list(string)` | `null` | no |
 | <a name="input_gitlab_repos"></a> [gitlab\_repos](#input\_gitlab\_repos)                           | A list of repositories the OIDC role should have access to.                                            | `list(any)` | n/a | yes |
-| <a name="input_gitlab_url"></a> [gitlab\_url](#input\_gitlab\_url)                                 | GitLab URL to perform TLS verification against.                                                        | `string` | `"https://gitlab.com"` | no |
 | <a name="input_managed_policy_names"></a> [managed\_policy\_names](#input\_managed\_policy\_names) | Managed policy names to attach to the OIDC role.                                                       | `list(any)` | n/a | yes |
 | <a name="input_role_name"></a> [role\_name](#input\_role\_name)                                    | The name of the OIDC role. Note: this will be prefixed with 'GitLabCI-OIDC-'                           | `string` | n/a | yes |
 
