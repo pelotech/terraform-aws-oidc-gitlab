@@ -1,6 +1,9 @@
 # aws-oidc-gitlab
 Terraform module to configure GitLab runner pipelines with AWS Identity Provider OIDC
 
+## Debugging features
+The `assume_role_names` input allows you to assume the OIDC role and act as if you were the GitLab runner pipeline. This is very useful for debugging while you're getting things setup. Note: we recommend removing this once you're production ready so that all further changes are only applied via the pipeline.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
