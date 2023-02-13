@@ -45,7 +45,8 @@ variable "assume_role_names" {
   default     = null
 }
 
-variable "aws_region" {
-  type        = string
-  description = "AWS region."
+variable "max_session_duration" {
+  type = number
+  description = "Maximum session duration in seconds. - by default assume role will be 15 minutes - when calling from actions you'll need to increase up to the maximum allowed hwere"
+  default = 3600
 }

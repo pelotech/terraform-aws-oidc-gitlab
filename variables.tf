@@ -9,11 +9,6 @@ variable "assume_role_names" {
   default     = null
 }
 
-variable "aws_region" {
-  type        = string
-  description = "AWS region."
-}
-
 variable "subject_roles" {
   type = map(list(string))
   description = "Subject to role mapping. Ex: repo:organization/infrastructure:ref:refs/heads/main -> [AdministratorAccess, AmazonS3FullAccess, CustomUserPolicyOne]"
@@ -41,4 +36,10 @@ variable "match_field" {
   type        = string
   default     = "aud"
   description = "GitLab match_field."
+}
+
+variable "max_session_duration" {
+  type = number
+  description = "Maximum session duration in seconds. - by default assume role will be 15 minutes - when calling from actions you'll need to increase up to the maximum allowed hwere"
+  default = 3600
 }

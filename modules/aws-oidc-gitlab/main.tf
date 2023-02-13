@@ -54,11 +54,12 @@ data "aws_iam_policy_document" "assume-role-policy" {
 }
 
 resource "aws_iam_role" "gitlab_ci" {
-  name                = format("GitLabCI-OIDC-%s", var.role_name)
-  description         = "GitLabCI with OIDC"
-  path                = "/ci/"
-  assume_role_policy  = data.aws_iam_policy_document.assume-role-policy.json
-  managed_policy_arns = formatlist(
+  name                 = format("GitLabCI-OIDC-%s", var.role_name)
+  description          = "GitLabCI with OIDC"
+  max_session_duration = var.max_session_duration
+  path                 = "/ci/"
+  assume_role_policy   = data.aws_iam_policy_document.assume-role-policy.json
+  managed_policy_arns  = formatlist(
     "arn:%s:iam::aws:policy/%s",
     data.aws_partition.current.partition,
     var.managed_policy_names

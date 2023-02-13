@@ -19,4 +19,5 @@ module "aws_oidc_gitlab" {
   aud_value            = var.aud_value
   gitlab_url           = var.gitlab_url
   gitlab_tls_url       = var.gitlab_tls_url
+  max_session_duration = var.max_session_duration
 }
