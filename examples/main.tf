@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "aws" {
-  alias = "my_alias"
+  alias  = "my_alias"
   region = "eu-west-2"
 }
 
@@ -17,9 +17,12 @@ module "aws_oidc_gitlab" {
   providers = {
     aws = aws.my_alias
   }
+  aws_region               = "eu-west-2"
   role_name                = "TF"
-  match_value              = ["repo:organization/repository_name:ref:refs/heads/main"]
-  managed_policy_names     = ["SomeManagedpolicy"]
+  subject_roles            = {
+    "repo:organization/infrastructure:ref:refs/heads/main" = ["AdministratorAccess"]
+    "repo:organization/infrastructure:ref:refs/heads/*" = ["AmazonS3ReadOnlyAccess"]
+  }
   # Should only add users that already have admin access - nice to debug eks clusters as the role that created them
   assume_role_names = ["aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_SomeManagedpolicy_XXXXXXXXXXXXXXXXX"]
 }
