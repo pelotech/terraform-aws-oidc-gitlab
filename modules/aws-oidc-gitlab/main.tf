@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "assume-role-policy" {
     }
     condition {
       test     = "StringLike"
-      variable = "${aws_iam_openid_connect_provider.gitlab.url}:${var.match_field}"
+      variable = "${aws_iam_openid_connect_provider.gitlab.url}:sub"
       values   = var.gitlab_repos
     }
 

@@ -1,7 +1,7 @@
 variable "assume_role_names" {
   description = "List of roles that can assume the OIDC role. Useful for debugging cluster before aws-config is updated."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "subject_roles" {
@@ -25,12 +25,6 @@ variable "aud_value" {
   type        = string
   default     = "https://gitlab.com"
   description = "GitLab Aud"
-}
-
-variable "match_field" {
-  type        = string
-  default     = "aud"
-  description = "GitLab match_field."
 }
 
 variable "max_session_duration" {

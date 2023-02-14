@@ -18,12 +18,6 @@ variable "aud_value" {
   description = "GitLab Aud"
 }
 
-variable "match_field" {
-  type        = string
-  default     = "sub"
-  description = "GitLab match_field."
-}
-
 variable "gitlab_repos" {
   type        = list(string)
   description = "A list of repositories the OIDC role should have access to."
@@ -42,7 +36,7 @@ variable "managed_policy_names" {
 variable "assume_role_names" {
   description = "List of roles that can assume the OIDC role. Useful for debugging cluster before aws-config is updated."
   type        = list(string)
-  default     = null
+  default     = []
 }
 
 variable "max_session_duration" {

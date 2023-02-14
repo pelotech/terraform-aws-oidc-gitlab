@@ -15,7 +15,6 @@ module "aws_oidc_gitlab" {
   gitlab_repos         = [each.key]
   managed_policy_names = each.value
   assume_role_names    = var.assume_role_names
-  match_field          = var.match_field
   aud_value            = var.aud_value
   gitlab_url           = var.gitlab_url
   gitlab_tls_url       = var.gitlab_tls_url
