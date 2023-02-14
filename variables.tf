@@ -1,5 +1,5 @@
 variable "assume_role_names" {
-  description = "List of roles that can assume the OIDC role. Useful for debuging cluster before aws-config is updated."
+  description = "List of roles that can assume the OIDC role. Useful for debugging cluster before aws-config is updated."
   type        = list(string)
   default     = null
 }
