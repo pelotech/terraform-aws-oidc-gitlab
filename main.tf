@@ -11,7 +11,7 @@ terraform {
 module "aws_oidc_gitlab" {
   for_each             = var.subject_roles
   source               = "./modules/aws-oidc-gitlab"
-  role_name            = var.role_name
+  role_name            = each.key
   gitlab_repos         = [each.key]
   managed_policy_names = each.value
   assume_role_names    = var.assume_role_names

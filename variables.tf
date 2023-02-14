@@ -1,8 +1,3 @@
-variable "role_name" {
-  description = "The name of the OIDC role. Note: this will be prefixed with 'GitLabCI-OIDC-'"
-  type        = string
-}
-
 variable "assume_role_names" {
   description = "List of roles that can assume the OIDC role. Useful for debuging cluster before aws-config is updated."
   type        = list(string)

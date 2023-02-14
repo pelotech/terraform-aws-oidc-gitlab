@@ -17,8 +17,6 @@ module "aws_oidc_gitlab" {
   providers = {
     aws = aws.my_alias
   }
-  aws_region               = "eu-west-2"
-  role_name                = "TF"
   subject_roles            = {
     "repo:organization/infrastructure:ref:refs/heads/main" = ["AdministratorAccess"]
     "repo:organization/infrastructure:ref:refs/heads/*" = ["AmazonS3ReadOnlyAccess"]

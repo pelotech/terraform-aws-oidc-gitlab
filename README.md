@@ -36,7 +36,6 @@ No resources.
 | <a name="input_gitlab_url"></a> [gitlab\_url](#input\_gitlab\_url) | GitLab URL. | `string` | `"https://gitlab.com"` | no |
 | <a name="input_match_field"></a> [match\_field](#input\_match\_field) | GitLab match\_field. | `string` | `"aud"` | no |
 | <a name="input_max_session_duration"></a> [max\_session\_duration](#input\_max\_session\_duration) | Maximum session duration in seconds. - by default assume role will be 15 minutes - when calling from actions you'll need to increase up to the maximum allowed hwere | `number` | `3600` | no |
-| <a name="input_role_name"></a> [role\_name](#input\_role\_name) | The name of the OIDC role. Note: this will be prefixed with 'GitLabCI-OIDC-' | `string` | n/a | yes |
 | <a name="input_subject_roles"></a> [subject\_roles](#input\_subject\_roles) | Subject to role mapping. Ex: repo:organization/infrastructure:ref:refs/heads/main -> [AdministratorAccess, AmazonS3FullAccess, CustomUserPolicyOne] | `map(list(string))` | n/a | yes |
 
 ## Outputs
