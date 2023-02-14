@@ -30,7 +30,7 @@ variable "gitlab_repos" {
 }
 
 variable "role_name" {
-  description = "The name of the OIDC role. Note: this will be prefixed with 'GitLabCI-OIDC-'"
+  description = "The name of the OIDC role. Note: this will be prefixed with 'gitlab-role-'"
   type        = string
 }
 

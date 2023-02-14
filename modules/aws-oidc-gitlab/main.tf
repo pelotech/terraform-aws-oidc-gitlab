@@ -54,7 +54,7 @@ data "aws_iam_policy_document" "assume-role-policy" {
 }
 
 resource "aws_iam_role" "gitlab_ci" {
-  name                 = format("GitLabCI-OIDC-%s", var.role_name)
+  name                 = format("gitlab-role-%s", var.role_name)
   description          = "GitLabCI with OIDC"
   max_session_duration = var.max_session_duration
   path                 = "/ci/"
