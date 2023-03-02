@@ -1,12 +1,11 @@
-variable "assume_role_names" {
-  description = "List of roles that can assume the OIDC role. Useful for debugging cluster before aws-config is updated."
-  type        = list(string)
-  default     = []
-}
-
-variable "subject_roles" {
-  type = map(list(string))
-  description = "Subject to role mapping. Ex: repo:organization/infrastructure:ref:refs/heads/main -> [AdministratorAccess, AmazonS3FullAccess, CustomUserPolicyOne]"
+variable "role_subject-repos_policies" {
+  type = map(object({
+    role_path         = optional(string)
+    subject_repos     = list(string)
+    policy_arns       = list(string)
+    assume_role_names = optional(list(string))
+  }))
+  description = "role name to repos and policies mapping. role name as the key and object value for repo subjects ie \"repo:organization/infrastructure:ref:refs/heads/main\" as well as a list of policy arns ie [\"Administrator\"] and list of roles that can assume the new role for debugging"
 }
 
 variable "gitlab_tls_url" {
