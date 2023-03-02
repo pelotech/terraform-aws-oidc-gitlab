@@ -14,14 +14,20 @@ provider "aws" {
 }
 
 module "aws_oidc_gitlab" {
-  source    = "pelotech/oidc-gitlab/aws"
+  source = "pelotech/oidc-gitlab/aws"
   providers = {
     aws = aws.my_alias
   }
-  subject_roles = {
-    "repo:organization/infrastructure:ref:refs/heads/main" = ["AdministratorAccess"]
-    "repo:organization/infrastructure:ref:refs/heads/*"    = ["AmazonS3ReadOnlyAccess"]
+  subject_policies = {
+    "org-infra-main" = {
+      role_path         = "/some-role-path/"
+      subject_repos     = ["project_path:mygroup/myproject:ref_type:branch:ref:main"]
+      policy_arns       = ["arn:aws:iam::aws:policy/AdministratorAccess"]
+      assume_role_names = ["aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_SomeManagedpolicy_XXXXXXXXXXXXXXXXX"]
+    }
+    "org-infra-all-branches" = {
+      subject_repos = ["project_path:mygroup/myproject:ref_type:branch:ref:*"]
+      policy_arns   = ["arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"]
+    }
   }
-  # Be careful here - they will have the ability to be the role of the oidc and will have the same max permission as the managed policy name state.
-  assume_role_names = ["aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_SomeManagedpolicy_XXXXXXXXXXXXXXXXX"]
 }

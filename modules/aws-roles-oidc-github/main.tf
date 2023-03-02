@@ -11,15 +11,7 @@ terraform {
 data "aws_partition" "current" {}
 data "aws_caller_identity" "current" {}
 
-data "tls_certificate" "gitlab" {
-  url = var.gitlab_tls_url
-}
 
-resource "aws_iam_openid_connect_provider" "gitlab" {
-  url             = var.gitlab_url
-  client_id_list  = [var.aud_value]
-  thumbprint_list = [data.tls_certificate.gitlab.certificates.0.sha1_fingerprint]
-}
 
 data "aws_iam_policy_document" "assume-role-policy" {
   statement {
@@ -27,17 +19,17 @@ data "aws_iam_policy_document" "assume-role-policy" {
 
     principals {
       type        = "Federated"
-      identifiers = [aws_iam_openid_connect_provider.gitlab.arn]
+      identifiers = [var.gitlab_oidc_provider_arn]
     }
     condition {
       test     = "StringLike"
-      variable = "${aws_iam_openid_connect_provider.gitlab.url}:sub"
+      variable = "${var.gitlab_oidc_provider_url}:sub"
       values   = var.gitlab_repos
     }
 
   }
   dynamic "statement" {
-    for_each = var.assume_role_names
+    for_each = var.assume_role_names != null ? var.assume_role_names : []
     content {
       actions = ["sts:AssumeRole"]
       principals {
@@ -54,14 +46,10 @@ data "aws_iam_policy_document" "assume-role-policy" {
 }
 
 resource "aws_iam_role" "gitlab_ci" {
-  name                 = format("gitlab-role-%s", var.role_name)
+  name                 = var.role_name
+  path                 = var.role_path
   description          = "GitLabCI with OIDC"
   max_session_duration = var.max_session_duration
-  path                 = "/ci/"
   assume_role_policy   = data.aws_iam_policy_document.assume-role-policy.json
-  managed_policy_arns  = formatlist(
-    "arn:%s:iam::aws:policy/%s",
-    data.aws_partition.current.partition,
-    var.managed_policy_names
-  )
+  managed_policy_arns  = var.policy_arns
 }
