@@ -1,8 +1,16 @@
 # aws-oidc-gitlab
 Terraform module to configure GitLab runner pipelines with AWS Identity Provider OIDC
+This allows GitLab Runners to authenticate against AWS without using any long-lived keys.
+This module provisions the necessary role and permissions as defined in the
+[official GitLab docs](https://docs.gitlab.com/ee/ci/cloud_services/aws/).
+
+## Multiple repo configuration
+This module allows you to create roles for lists of repos(subjects) and policies in the AWS account.
+Currently, it only supports policies in the same account as the role being created.
+This is helpful for non-mono repo style groups as well as for large organizations where teams have separate repo ownership for the same AWS account.
 
 ## Debugging features
-The `assume_role_names` input allows you to assume the OIDC role and act as if you were the GitLab runner pipeline. This is very useful for debugging while you're getting things setup. Note: we recommend removing this once you're production ready so that all further changes are only applied via the pipeline.
+The `assume_role_names` input allows you to assume the OIDC role and act as if you were the GitLab runner pipeline. This is very useful for debugging while you're getting things setup. Note: we recommend removing this once you are production ready so that all further changes are only applied via the pipeline.
 
 ## Example .gitlab-ci.yml
 ```yaml
