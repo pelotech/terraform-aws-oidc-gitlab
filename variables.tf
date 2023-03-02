@@ -5,7 +5,7 @@ variable "role_subject-repos_policies" {
     policy_arns       = list(string)
     assume_role_names = optional(list(string))
   }))
-  description = "role name to repos and policies mapping. role name as the key and object value for repo subjects ie \"repo:organization/infrastructure:ref:refs/heads/main\" as well as a list of policy arns ie [\"Administrator\"] and list of roles that can assume the new role for debugging"
+  description = "role name to repos and policies mapping. role name as the key and object value for repo subjects ie \"project_path:mygroup/myproject:ref_type:branch:ref:main\" as well as a list of policy arns ie [\"arn:aws:iam::aws:policy/AdministratorAccess\"] and list of roles that can assume the new role for debugging"
 }
 
 variable "gitlab_tls_url" {
