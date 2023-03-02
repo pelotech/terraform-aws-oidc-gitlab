@@ -21,7 +21,7 @@ module "aws_oidc_gitlab" {
   subject_policies = {
     "org-infra-main" = {
       role_path         = "/some-role-path/"
-      subject_repos     = ["repo:organization/infrastructure:ref:refs/heads/main"]
+      subject_repos     = ["project_path:mygroup/myproject:ref_type:branch:ref:main"]
       policy_arns       = ["arn:aws:iam::aws:policy/AdministratorAccess"]
       assume_role_names = ["aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_SomeManagedpolicy_XXXXXXXXXXXXXXXXX"]
     }
