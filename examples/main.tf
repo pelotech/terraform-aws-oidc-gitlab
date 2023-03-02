@@ -26,7 +26,7 @@ module "aws_oidc_gitlab" {
       assume_role_names = ["aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_SomeManagedpolicy_XXXXXXXXXXXXXXXXX"]
     }
     "org-infra-all-branches" = {
-      subject_repos = ["repo:organization/infrastructure:ref:refs/heads/*"]
+      subject_repos = ["project_path:mygroup/myproject:ref_type:branch:ref:*"]
       policy_arns   = ["arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"]
     }
   }
